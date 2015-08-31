@@ -38,7 +38,7 @@ class OdnoklassnikiResourceOwner extends GenericOAuth2ResourceOwner
         $parameters = array(
             'access_token'    => $accessToken['access_token'],
             'application_key' => $this->options['application_key'],
-            'sig'             => md5(sprintf('application_key=%smethod=users.getCurrentUser%s', $this->options['application_key'], md5($accessToken['access_token'].$this->options['client_secret']))),
+            'sig'             => md5(sprintf('application_key=%s%smethod=users.getCurrentUser%s', $this->options['application_key'], $this->options['fields'], md5($accessToken['access_token'].$this->options['client_secret']))),
         );
         $url = $this->normalizeUrl($this->options['infos_url'], $parameters);
 
@@ -63,7 +63,7 @@ class OdnoklassnikiResourceOwner extends GenericOAuth2ResourceOwner
             'authorization_url' => 'http://www.odnoklassniki.ru/oauth/authorize',
             'access_token_url'  => 'http://api.odnoklassniki.ru/oauth/token.do',
             'infos_url'         => 'http://api.odnoklassniki.ru/fb.do?method=users.getCurrentUser',
-
+            'fields'            => null,
             'application_key'   => null,
         ));
     }
